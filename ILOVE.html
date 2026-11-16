@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ILOVE – Love Compatibility</title>
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & LIQUID GLASS 27 PINK EDITION VARIABLES
+       ========================================================================== */
+    :root {
+      --pink-pastel: #FCE4EF;
+      --pink-soft: #F7BDD4;
+      --pink-primary: #F45F98;
+      --pink-deep: #D63879;
+      --pink-glow: rgba(244, 95, 152, 0.42);
+      --glass-white: rgba(255, 255, 255, 0.55);
+      --glass-white-strong: rgba(255, 255, 255, 0.78);
+      --glass-border: rgba(255, 255, 255, 0.72);
+      --glass-border-subtle: rgba(255, 255, 255, 0.45);
+      --text-main: #542B40;
+      --text-muted: #82526B;
+      --gold-accent: #C99A5B;
+      --gold-light: #EAD1A8;
+
+      --shadow-glass:
+        0 20px 50px rgba(214, 56, 121, 0.14),
+        0 4px 16px rgba(244, 95, 152, 0.08),
+        inset 0 1px 1px rgba(255, 255, 255, 0.85);
+      --shadow-button:
+        0 12px 28px rgba(244, 95, 152, 0.38),
+        inset 0 1px 1px rgba(255, 255, 255, 0.6);
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-serif: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, "Times New Roman", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 12% 15%, #FFEAF4 0%, transparent 45%),
+        radial-gradient(circle at 88% 20%, #F9C6DC 0%, transparent 48%),
+        radial-gradient(circle at 50% 85%, #FBD6E6 0%, transparent 55%),
+        linear-gradient(145deg, #FFF5F9 0%, #FCE4EF 48%, #F7BDD4 100%);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==========================================================================
+       2. AMBIENT FLOATING HEARTS & LIGHT ORBS
+       ========================================================================== */
+    .ambient-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(55px);
+      opacity: 0.65;
+      animation: floatOrb 16s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 340px;
+      height: 340px;
+      background: #FF9EC4;
+      top: -80px;
+      left: -60px;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: #FFD1E5;
+      bottom: 8%;
+      right: -100px;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 260px;
+      height: 260px;
+      background: #F45F98;
+      opacity: 0.22;
+      top: 45%;
+      left: 60%;
+      animation-delay: -9s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, -35px) scale(1.08); }
+    }
+
+    .bg-heart {
+      position: absolute;
+      bottom: -40px;
+      color: rgba(244, 95, 152, 0.22);
+      user-select: none;
+      animation: riseHeart linear infinite;
+    }
+
+    @keyframes riseHeart {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      15% { opacity: 0.7; }
+      85% { opacity: 0.5; }
+      100% {
+        transform: translateY(-110vh) rotate(25deg) scale(1.15);
+        opacity: 0;
+      }
+    }
+
+    /* ==========================================================================
+       3. LIQUID GLASS CARD BASE & LAYOUT
+       ========================================================================== */
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 20px 18px 60px;
+    }
+
+    .liquid-glass {
+      background: var(--glass-white);
+      backdrop-filter: blur(22px) saturate(165%);
+      -webkit-backdrop-filter: blur(22px) saturate(165%);
+      border: 1.5px solid var(--glass-border);
+      box-shadow: var(--shadow-glass);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .liquid-glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.65) 0%,
+        rgba(255, 255, 255, 0.1) 42%,
+        rgba(255, 255, 255, 0) 60%
+      );
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       4. NAVIGATION BAR
+       ========================================================================== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 34px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #FF7EB3 0%, #F45F98 55%, #D63879 100%);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 16px rgba(214, 56, 121, 0.32), inset 0 1px 2px rgba(255,255,255,0.7);
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-size: 1.42rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, #D63879 0%, #F45F98 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(244, 95, 152, 0.28);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--pink-deep);
+      text-transform: uppercase;
+    }
+
+    .counter-pill {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.5);
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--glass-border-subtle);
+    }
+
+    /* ==========================================================================
+       5. HERO SECTION
+       ========================================================================== */
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 8px 12px;
+      position: relative;
+    }
+
+    .hero-heart-3d {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 68px;
+      height: 68px;
+      margin-bottom: 14px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(252,228,239,0.55));
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 14px 30px rgba(244, 95, 152, 0.22);
+      animation: pulseFloat 3.4s ease-in-out infinite;
+    }
+
+    @keyframes pulseFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.05); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.15rem, 5vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.18;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #542B40 15%, #D63879 65%, #F45F98 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.01em;
+    }
+
+    .hero p {
+      max-width: 580px;
+      margin: 0 auto;
+      font-size: 1.03rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       6. INPUT FORM CARD
+       ========================================================================== */
+    .form-card {
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      margin-bottom: 32px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+
+    .heart-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 4px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(244, 95, 152, 0.3);
+      color: var(--pink-primary);
+      font-size: 1.2rem;
+      box-shadow: 0 6px 16px rgba(244, 95, 152, 0.16);
+      user-select: none;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .input-group label {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 4px;
+    }
+
+    .input-group label span.opt {
+      font-weight: 500;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .glass-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.25s ease;
+      box-shadow: inset 0 2px 5px rgba(84, 43, 64, 0.04);
+    }
+
+    .glass-input::placeholder {
+      color: #A87C93;
+      font-weight: 400;
+    }
+
+    .glass-input:focus {
+      background: rgba(255, 255, 255, 0.94);
+      border-color: var(--pink-primary);
+      box-shadow: 0 0 0 4px rgba(244, 95, 152, 0.18);
+    }
+
+    .message-row {
+      margin-bottom: 26px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 17px 28px;
+      border: none;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, #FF79AF 0%, #F45F98 50%, #D63879 100%);
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      box-shadow: var(--shadow-button);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(214, 56, 121, 0.45), inset 0 1px 2px rgba(255,255,255,0.75);
+      filter: brightness(1.03);
+    }
+
+    .btn-primary:active:not(:disabled) {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.72;
+      cursor: not-allowed;
+    }
+
+    /* ==========================================================================
+       7. HISTORY SECTION
+       ========================================================================== */
+    .section-card {
+      border-radius: var(--radius-xl);
+      padding: 26px 26px;
+      margin-bottom: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-ghost-danger {
+      padding: 8px 15px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(214, 56, 121, 0.28);
+      background: rgba(255, 255, 255, 0.65);
+      color: var(--pink-deep);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-ghost-danger:hover {
+      background: var(--pink-deep);
+      color: #fff;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .history-empty {
+      text-align: center;
+      padding: 26px 16px;
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(244, 95, 152, 0.35);
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .history-item:hover {
+      background: rgba(255, 255, 255, 0.88);
+      transform: translateY(-1px);
+    }
+
+    .history-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .history-names {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--text-main);
+    }
+
+    .history-names span.h-heart {
+      color: var(--pink-primary);
+      margin: 0 5px;
+    }
+
+    .history-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .history-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .score-pill {
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, #FCE4EF, #F7BDD4);
+      color: var(--pink-deep);
+      font-weight: 800;
+      font-size: 0.9rem;
+      border: 1px solid rgba(244, 95, 152, 0.3);
+    }
+
+    .btn-mini {
+      padding: 7px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(244, 95, 152, 0.32);
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-mini:hover {
+      background: var(--pink-primary);
+      color: #fff;
+      border-color: var(--pink-primary);
+    }
+
+    /* ==========================================================================
+       8. FORMULA INFO SECTION & FOOTER
+       ========================================================================== */
+    .formula-box {
+      position: relative;
+      z-index: 1;
+      font-size: 0.93rem;
+      color: var(--text-muted);
+    }
+
+    .formula-code {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 8px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(244, 95, 152, 0.25);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--pink-deep);
+    }
+
+    .disclaimer-note {
+      margin-top: 10px;
+      font-size: 0.84rem;
+      font-style: italic;
+      color: #8E5E76;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      padding-top: 10px;
+    }
+
+    /* ==========================================================================
+       9. RESULT MODAL (STANDALONE CENTER OVERLAY)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(84, 43, 64, 0.34);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .result-modal {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 34px;
+      padding: 30px 26px 28px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.88) 0%, rgba(252, 228, 239, 0.84) 100%);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 2px solid rgba(255, 255, 255, 0.92);
+      box-shadow:
+        0 28px 70px rgba(214, 56, 121, 0.32),
+        0 0 45px rgba(244, 95, 152, 0.28),
+        inset 0 1px 2px rgba(255, 255, 255, 1);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transform: scale(0.86) translateY(16px);
+      opacity: 0;
+      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+    }
+
+    .modal-backdrop.active .result-modal {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .modal-glow-ring {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 95, 152, 0.25) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+      animation: pulseGlow 2.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: translate(-50%, -55%) scale(0.92); opacity: 0.65; }
+      100% { transform: translate(-50%, -55%) scale(1.12); opacity: 1; }
+    }
+
+    .modal-close-x {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(214, 56, 121, 0.22);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--text-main);
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      z-index: 5;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-x:hover {
+      background: var(--pink-deep);
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    .modal-kicker {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: var(--pink-deep);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .modal-pair-names {
+      font-size: 1.24rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 2;
+      word-break: break-word;
+    }
+
+    .modal-pair-names span.heart-sep {
+      color: var(--pink-primary);
+      margin: 0 6px;
+      display: inline-block;
+      animation: beatSmall 1.2s infinite;
+    }
+
+    @keyframes beatSmall {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    /* Heart Fill SVG Container */
+    .heart-stage {
+      position: relative;
+      width: 196px;
+      height: 180px;
+      margin: 4px auto 14px;
+      display: grid;
+      place-items: center;
+      z-index: 2;
+    }
+
+    .heart-svg {
+      width: 186px;
+      height: 170px;
+      filter: drop-shadow(0 12px 24px rgba(214, 56, 121, 0.32));
+      overflow: visible;
+    }
+
+    .heart-percent-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 8px;
+      font-size: 2.35rem;
+      font-weight: 900;
+      color: #542B40;
+      text-shadow: 0 1px 10px rgba(255, 255, 255, 0.9);
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      pointer-events: none;
+    }
+
+    .heart-percent-label.high-fill {
+      color: #FFFFFF;
+      text-shadow: 0 2px 10px rgba(145, 21, 74, 0.65);
+    }
+
+    .result-details {
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .result-details.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .result-tier-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--pink-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .result-comment {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 18px;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .modal-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-cert {
+      padding: 13px 18px;
+      border: none;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, #F45F98 0%, #D63879 100%);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(214, 56, 121, 0.32);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-cert:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .btn-secondary {
+      padding: 11px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid rgba(244, 95, 152, 0.38);
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #fff;
+      border-color: var(--pink-primary);
+      color: var(--pink-deep);
+    }
+
+    /* Particle Burst Inside Modal */
+    .modal-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .burst-particle {
+      position: absolute;
+      bottom: 25%;
+      font-size: 1.1rem;
+      animation: burstUp 2.2s ease-out forwards;
+    }
+
+    @keyframes burstUp {
+      0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+      }
+      20% { opacity: 1; }
+      100% {
+        transform: translateY(-230px) translateX(var(--dx, 0px)) rotate(var(--rot, 20deg)) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* ==========================================================================
+       10. CERTIFICATE OVERLAY & LUXURY WEDDING STATIONERY DESIGN
+       ========================================================================== */
+    .cert-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(66, 30, 49, 0.62);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      overflow-y: auto;
+      padding: 24px 14px 48px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cert-overlay.active {
+      display: flex;
+    }
+
+    .cert-toolbar {
+      width: 100%;
+      max-width: 794px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 14px 20px;
+      margin-bottom: 18px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.88);
+      border: 1.5px solid #fff;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .cert-toolbar-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .cert-toolbar-btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* A4 Paper Sheet (210mm x 297mm) */
+    .certificate-sheet {
+      width: 100%;
+      max-width: 794px;
+      min-height: 1080px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(252, 228, 239, 0.65) 0%, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(247, 189, 212, 0.45) 0%, transparent 55%),
+        linear-gradient(180deg, #FFFDFB 0%, #FFF7FA 50%, #FFF2F7 100%);
+      color: #4A2337;
+      padding: 28px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cert-frame-outer {
+      flex: 1;
+      border: 2.5px solid #D63879;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .cert-frame-inner {
+      flex: 1;
+      border: 1px solid #C99A5B;
+      padding: 38px 34px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    /* Decorative SVG Corners */
+    .corner-ornament {
+      position: absolute;
+      width: 68px;
+      height: 68px;
+      color: #D63879;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .corner-tl { top: 8px; left: 8px; }
+    .corner-tr { top: 8px; right: 8px; transform: scaleX(-1); }
+    .corner-bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+    .corner-br { bottom: 8px; right: 8px; transform: scale(-1, -1); }
+
+    .cert-header-brand {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: #D63879;
+      margin-bottom: 6px;
+    }
+
+    .cert-sub-en {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      color: #9E7340;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .cert-main-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 3.6vw, 2.45rem);
+      font-weight: 700;
+      color: #542B40;
+      letter-spacing: 0.05em;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .cert-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 auto 22px;
+      width: 72%;
+      color: #C99A5B;
+    }
+
+    .cert-divider::before,
+    .cert-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C99A5B, transparent);
+    }
+
+    .cert-lead {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.08rem;
+      color: #7A4B63;
+      margin-bottom: 16px;
+    }
+
+    .cert-couple-box {
+      margin: 6px auto 22px;
+      padding: 16px 24px;
+      border-top: 1px solid rgba(201, 154, 91, 0.45);
+      border-bottom: 1px solid rgba(201, 154, 91, 0.45);
+      max-width: 92%;
+    }
+
+    .cert-couple-names {
+      font-family: var(--font-serif);
+      font-size: clamp(1.55rem, 3.2vw, 2.15rem);
+      font-weight: 700;
+      color: #D63879;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .cert-couple-names .c-heart {
+      color: #F45F98;
+      margin: 0 10px;
+      font-size: 1.45rem;
+    }
+
+    .cert-score-medallion {
+      margin: 8px auto 18px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFFFFF 45%, #FCE4EF 100%);
+      border: 2px solid #F45F98;
+      box-shadow: 0 0 0 5px #FFF9FC, 0 0 0 6.5px #C99A5B, 0 12px 28px rgba(214, 56, 121, 0.16);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cert-percent-big {
+      font-family: var(--font-serif);
+      font-size: 3.1rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #D63879;
+    }
+
+    .cert-tier-badge {
+      margin-top: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8E5E26;
+      padding: 0 10px;
+    }
+
+    .cert-message-wrap {
+      max-width: 560px;
+      margin: 6px auto 22px;
+      padding: 14px 22px;
+      background: rgba(252, 228, 239, 0.42);
+      border-left: 3px solid #F45F98;
+      border-right: 3px solid #F45F98;
+      border-radius: 8px;
+    }
+
+    .cert-message-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9E6882;
+      margin-bottom: 4px;
+    }
+
+    .cert-message-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.04rem;
+      color: #542B40;
+    }
+
+    .cert-meta-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px 32px;
+      font-size: 0.84rem;
+      color: #6E445A;
+      margin-bottom: 26px;
+    }
+
+    .cert-meta-grid strong {
+      color: #542B40;
+    }
+
+    /* Signatures & Official Round Seal */
+    .cert-bottom-area {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 16px;
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+
+    .sig-box {
+      text-align: center;
+    }
+
+    .sig-space {
+      height: 58px;
+      border-bottom: 1.5px dashed #B8869F;
+      margin: 0 auto 8px;
+      width: 86%;
+    }
+
+    .sig-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #542B40;
+      text-transform: uppercase;
+    }
+
+    .sig-name {
+      font-size: 0.84rem;
+      color: #82526B;
+      margin-top: 2px;
+    }
+
+    /* Metallic Pink Round Seal */
+    .official-seal {
+      width: 106px;
+      height: 106px;
+      border-radius: 50%;
+      border: 2.5px solid #D63879;
+      box-shadow: 0 0 0 3px #FFF8FB, 0 0 0 4.5px #C99A5B;
+      background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(252,228,239,0.85) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-8deg);
+      color: #D63879;
+      user-select: none;
+    }
+
+    .seal-top {
+      font-size: 0.56rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: #9E7340;
+    }
+
+    .seal-center {
+      font-size: 0.95rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      margin: 2px 0;
+    }
+
+    .seal-bottom {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    /* ==========================================================================
+       11. GLASS TOAST NOTIFICATIONS & CONFIRMATION DIALOG
+       ========================================================================== */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 340px;
+      pointer-events: none;
+    }
+
+    .glass-toast {
+      pointer-events: auto;
+      padding: 13px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 14px 34px rgba(214, 56, 121, 0.22);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideInToast 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .glass-toast.error {
+      border-left: 4px solid #D63879;
+    }
+
+    .glass-toast.success {
+      border-left: 4px solid #F45F98;
+    }
+
+    @keyframes slideInToast {
+      from { opacity: 0; transform: translateX(24px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Custom Glass Confirm Modal */
+    .confirm-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(84, 43, 64, 0.38);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .confirm-backdrop.active {
+      display: flex;
+    }
+
+    .confirm-box {
+      max-width: 380px;
+      width: 100%;
+      border-radius: 26px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1.5px solid #fff;
+      box-shadow: 0 20px 50px rgba(214, 56, 121, 0.28);
+      text-align: center;
+    }
+
+    .confirm-box h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .confirm-box p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .confirm-btns {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       12. RESPONSIVE & REDUCED MOTION
+       ========================================================================== */
+    @media (max-width: 680px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .heart-connector {
+        margin: 0 auto;
+        width: 38px;
+        height: 38px;
+      }
+      .navbar {
+        padding: 10px 16px;
+      }
+      .counter-pill {
+        display: none;
+      }
+      .cert-frame-inner {
+        padding: 26px 16px 24px;
+      }
+      .cert-bottom-area {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .official-seal {
+        margin: 0 auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .bg-heart {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       13. PRINT STYLESHEET (A4 PORTRAIT PDF EXPORT)
+       ========================================================================== */
+    @page {
+      size: A4 portrait;
+      margin: 10mm;
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .ambient-layer,
+      .app-wrapper,
+      .modal-backdrop,
+      .toast-container,
+      .confirm-backdrop,
+      .cert-toolbar {
+        display: none !important;
+      }
+
+      .cert-overlay {
+        position: static !important;
+        display: block !important;
+        background: none !important;
+        backdrop-filter: none !important;
+        padding: 0 !important;
+        overflow: visible !important;
+      }
+
+      .certificate-sheet {
+        max-width: 100% !important;
+        width: 100% !important;
+        min-height: 275mm !important;
+        box-shadow: none !important;
+        padding: 8mm !important;
+        margin: 0 auto !important;
+        page-break-inside: avoid;
+      }
+
+      .cert-frame-inner {
+        padding: 12mm 10mm !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient Floating Orbs & Hearts -->
+  <div class="ambient-layer" id="ambientLayer" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-wrapper">
+    <!-- 1. Navigation Bar -->
+    <header class="navbar liquid-glass">
+      <a href="#" class="brand-logo" aria-label="ILOVE Trang chủ">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <span class="logo-text">ILOVE</span>
+      </a>
+
+      <div class="nav-right">
+        <span class="counter-pill" id="navCounterPill">Đã bói: 0 lượt</span>
+        <span class="nav-badge">♡ LOVE LAB</span>
+      </div>
+    </header>
+
+    <!-- 2. Hero Section -->
+    <section class="hero">
+      <div class="hero-heart-3d" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="heroHeartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FF8EC0"/>
+              <stop offset="50%" stop-color="#F45F98"/>
+              <stop offset="100%" stop-color="#D63879"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#heroHeartGrad)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+      <h1>Love is in the details.</h1>
+      <p>Một chút tò mò, một chút rung động và thật nhiều trái tim. Hãy khám phá chỉ số tương hợp tình yêu của hai bạn.</p>
+    </section>
+
+    <!-- 3. Input Form & 4. Action Button -->
+    <main>
+      <section class="form-card liquid-glass" aria-label="Biểu mẫu nhập tên bói tình yêu">
+        <form id="loveForm" novalidate>
+          <div class="form-grid">
+            <div class="input-group">
+              <label for="nameOne">Tên người thứ nhất</label>
+              <input
+                type="text"
+                id="nameOne"
+                class="glass-input"
+                placeholder="Ví dụ: Minh Anh"
+                maxlength="40"
+                autocomplete="off"
+                required
+              />
+            </div>
+
+            <div class="heart-connector" aria-hidden="true">♡</div>
+
+            <div class="input-group">
+              <label for="nameTwo">Tên người thứ hai</label>
+              <input
+                type="text"
+                id="nameTwo"
+                class="glass-input"
+                placeholder="Ví dụ: Hoàng Nam"
+                maxlength="40"
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="input-group message-row">
+            <label for="loveMessage">
+              Lời nhắn yêu thương
+              <span class="opt">(Không bắt buộc – Hiển thị trên giấy chứng nhận)</span>
+            </label>
+            <input
+              type="text"
+              id="loveMessage"
+              class="glass-input"
+              placeholder="Ví dụ: Cảm ơn vì đã luôn đồng hành cùng nhau..."
+              maxlength="140"
+              autocomplete="off"
+            />
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn-primary">
+            <span>♡ BẮT ĐẦU BÓI ♡</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- 5. Compatibility History Section -->
+      <section class="section-card liquid-glass" aria-labelledby="historyHeading">
+        <div class="section-header">
+          <h2 class="section-title" id="historyHeading">♡ LỊCH SỬ BÓI</h2>
+          <button type="button" id="clearHistoryBtn" class="btn-ghost-danger" style="display: none;">
+            Xóa lịch sử
+          </button>
+        </div>
+        <div class="history-list" id="historyList">
+          <div class="history-empty">Chưa có lượt bói nào được lưu. Hãy nhập tên hai người để bắt đầu khám phá!</div>
+        </div>
+      </section>
+
+      <!-- 6. Formula & Algorithm Info Section -->
+      <section class="section-card liquid-glass" aria-labelledby="formulaHeading">
+        <div class="section-header">
+          <h2 class="section-title" id="formulaHeading">✦ CÔNG THỨC TƯƠNG HỢP</h2>
+        </div>
+        <div class="formula-box">
+          <p>
+            Chỉ số tương hợp được tính bằng thuật toán băm đối xứng <strong>FNV-1a</strong> trên chuỗi tên tiếng Việt đã chuẩn hóa (loại bỏ khoảng trắng thừa, đồng nhất chữ thường và sắp xếp theo thứ tự bảng chữ cái).
+          </p>
+          <div class="formula-code">LOVE_PERCENT = FNV1A_HASH(SORTED_NAMES) % 101</div>
+          <p>
+            Nhờ tính chất này, cùng một cặp tên luôn cho ra kết quả nhất quán dù bạn nhập tên ai trước hay sau.
+          </p>
+          <p class="disclaimer-note">
+            * Lưu ý: Đây là thuật toán tạo kết quả trò chơi mang tính giải trí, không xác định tình cảm thực tế hay dự đoán tương lai.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- 7. Footer -->
+    <footer class="footer">
+      <p>ILOVE &middot; Trải nghiệm bói tình yêu tương tác</p>
+    </footer>
+  </div>
+
+  <!-- ========================================================================
+       STANDALONE RESULT MODAL (CENTER OVERLAY)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="resultModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalPairTitle">
+    <div class="result-modal" id="resultModalCard">
+      <div class="modal-glow-ring" aria-hidden="true"></div>
+      <div class="modal-particles" id="modalParticles" aria-hidden="true"></div>
+
+      <button type="button" class="modal-close-x" id="modalCloseX" aria-label="Đóng cửa sổ kết quả">✕</button>
+
+      <div class="modal-kicker">ILOVE · YOUR LOVE RESULT</div>
+      <div class="modal-pair-names" id="modalPairTitle">Tên 1 <span class="heart-sep">♡</span> Tên 2</div>
+
+      <!-- Dynamic SVG Heart Fill -->
+      <div class="heart-stage">
+        <svg class="heart-svg" viewBox="0 0 200 185" aria-hidden="true">
+          <defs>
+            <clipPath id="heartClipPath">
+              <path d="M100 172 C100 172 16 118 16 58 C16 28 39 10 64 10 C81 10 94 20 100 32 C106 20 119 10 136 10 C161 10 184 28 184 58 C184 118 100 172 100 172 Z"/>
+            </clipPath>
+            <linearGradient id="heartLiquidGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#D63879"/>
+              <stop offset="55%" stop-color="#F45F98"/>
+              <stop offset="100%" stop-color="#FF89B8"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Base Soft Pink Heart -->
+          <path
+            d="M100 172 C100 172 16 118 16 58 C16 28 39 10 64 10 C81 10 94 20 100 32 C106 20 119 10 136 10 C161 10 184 28 184 58 C184 118 100 172 100 172 Z"
+            fill="#FCE4EF"
+            stroke="#F7BDD4"
+            stroke-width="3"
+          />
+
+          <!-- Rising Liquid Fill Clipped to Heart -->
+          <g clip-path="url(#heartClipPath)">
+            <rect
+              id="heartFillRect"
+              x="0"
+              y="175"
+              width="200"
+              height="175"
+              fill="url(#heartLiquidGrad)"
+            />
+          </g>
+
+          <!-- Glossy Glass Highlight Outline -->
+          <path
+            d="M100 172 C100 172 16 118 16 58 C16 28 39 10 64 10 C81 10 94 20 100 32 C106 20 119 10 136 10 C161 10 184 28 184 58 C184 118 100 172 100 172 Z"
+            fill="none"
+            stroke="rgba(255,255,255,0.85)"
+            stroke-width="2.5"
+          />
+        </svg>
+
+        <div class="heart-percent-label" id="heartPercentText">0%</div>
+      </div>
+
+      <div class="result-details" id="resultDetails">
+        <div class="result-tier-title" id="resultTierTitle">ĐANG PHÂN TÍCH...</div>
+        <div class="result-comment" id="resultComment">...</div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cert" id="openCertBtn">✦ TẠO GIẤY CHỨNG NHẬN ✦</button>
+          <div class="modal-actions-row">
+            <button type="button" class="btn-secondary" id="shareResultBtn">CHIA SẺ KẾT QUẢ</button>
+            <button type="button" class="btn-secondary" id="modalCloseBtn">ĐÓNG KẾT QUẢ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       LUXURY CERTIFICATE PREVIEW & PRINT OVERLAY
+       ======================================================================== -->
+  <div class="cert-overlay" id="certOverlay" role="dialog" aria-modal="true" aria-label="Giấy chứng nhận tương hợp">
+    <div class="cert-toolbar">
+      <span class="cert-toolbar-title">♡ Xem trước Giấy Chứng Nhận Tương Hợp (Chuẩn A4)</span>
+      <div class="cert-toolbar-btns">
+        <button type="button" class="btn-cert" id="downloadPdfBtn">TẢI GIẤY CHỨNG NHẬN (PDF / IN)</button>
+        <button type="button" class="btn-secondary" id="closeCertBtn">Quay lại</button>
+      </div>
+    </div>
+
+    <article class="certificate-sheet" id="certificateSheet">
+      <div class="cert-frame-outer">
+        <div class="cert-frame-inner">
+          <!-- Four Luxury Corner Flourishes -->
+          <svg class="corner-ornament corner-tl" viewBox="0 0 80 80" fill="none">
+            <path d="M4 76V18C4 10.268 10.268 4 18 4H76" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 68V22C12 16.477 16.477 12 22 12H68" stroke="#C99A5B" stroke-width="1.2"/>
+            <circle cx="22" cy="22" r="3.5" fill="#F45F98"/>
+            <path d="M22 22C34 22 40 12 52 12M22 22C22 34 12 40 12 52" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <svg class="corner-ornament corner-tr" viewBox="0 0 80 80" fill="none">
+            <path d="M4 76V18C4 10.268 10.268 4 18 4H76" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 68V22C12 16.477 16.477 12 22 12H68" stroke="#C99A5B" stroke-width="1.2"/>
+            <circle cx="22" cy="22" r="3.5" fill="#F45F98"/>
+            <path d="M22 22C34 22 40 12 52 12M22 22C22 34 12 40 12 52" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <svg class="corner-ornament corner-bl" viewBox="0 0 80 80" fill="none">
+            <path d="M4 76V18C4 10.268 10.268 4 18 4H76" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 68V22C12 16.477 16.477 12 22 12H68" stroke="#C99A5B" stroke-width="1.2"/>
+            <circle cx="22" cy="22" r="3.5" fill="#F45F98"/>
+            <path d="M22 22C34 22 40 12 52 12M22 22C22 34 12 40 12 52" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <svg class="corner-ornament corner-br" viewBox="0 0 80 80" fill="none">
+            <path d="M4 76V18C4 10.268 10.268 4 18 4H76" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 68V22C12 16.477 16.477 12 22 12H68" stroke="#C99A5B" stroke-width="1.2"/>
+            <circle cx="22" cy="22" r="3.5" fill="#F45F98"/>
+            <path d="M22 22C34 22 40 12 52 12M22 22C22 34 12 40 12 52" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+
+          <!-- Top Header -->
+          <div>
+            <div class="cert-header-brand">I ♥ LOVE</div>
+            <div class="cert-sub-en">CERTIFICATE OF LOVE COMPATIBILITY</div>
+            <h2 class="cert-main-title">GIẤY CHỨNG NHẬN TƯƠNG HỢP</h2>
+            <div class="cert-divider"><span>♥</span></div>
+            <p class="cert-lead">Trân trọng chứng nhận kết quả vui dành cho</p>
+
+            <div class="cert-couple-box">
+              <div class="cert-couple-names" id="certCoupleNames">
+                Minh Anh <span class="c-heart">♡</span> Hoàng Nam
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Medallion & Message -->
+          <div>
+            <div class="cert-score-medallion">
+              <div class="cert-percent-big" id="certPercentBig">87%</div>
+              <div class="cert-tier-badge" id="certTierBadge">TÂM ĐẦU Ý HỢP</div>
+            </div>
+
+            <div class="cert-message-wrap">
+              <div class="cert-message-label">Lời nhắn lưu giữ</div>
+              <div class="cert-message-text" id="certMessageText">
+                "Chúc hai bạn luôn giữ được sự ấm áp, chân thành và những khoảnh khắc thật đẹp bên nhau!"
+              </div>
+            </div>
+
+            <div class="cert-meta-grid">
+              <div>Ngày cấp: <strong id="certDate">16/11/2026</strong></div>
+              <div>Thời gian: <strong id="certTime">17:00:00</strong></div>
+              <div>Mã chứng nhận: <strong id="certCode">ILV-2026-8899</strong></div>
+            </div>
+          </div>
+
+          <!-- Signatures & Official Seal -->
+          <div class="cert-bottom-area">
+            <div class="sig-box">
+              <div class="sig-space"></div>
+              <div class="sig-title">CHỮ KÝ NGƯỜI THỨ NHẤT</div>
+              <div class="sig-name" id="certSigName1">Minh Anh</div>
+            </div>
+
+            <div class="official-seal" aria-label="Con dấu chính thức ILOVE">
+              <span class="seal-top">OFFICIAL SEAL</span>
+              <span class="seal-center">♥ ILOVE ♥</span>
+              <span class="seal-bottom">LOVE LAB</span>
+            </div>
+
+            <div class="sig-box">
+              <div class="sig-space"></div>
+              <div class="sig-title">CHỮ KÝ NGƯỜI THỨ HAI</div>
+              <div class="sig-name" id="certSigName2">Hoàng Nam</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Custom Glass Confirmation Dialog -->
+  <div class="confirm-backdrop" id="confirmBackdrop" role="dialog" aria-modal="true">
+    <div class="confirm-box">
+      <h3>Xác nhận xóa lịch sử</h3>
+      <p>Bạn có chắc chắn muốn xóa toàn bộ lịch sử bói tình yêu đã lưu trên trình duyệt này không?</p>
+      <div class="confirm-btns">
+        <button type="button" class="btn-cert" id="confirmYesBtn">Xóa tất cả</button>
+        <button type="button" class="btn-secondary" id="confirmNoBtn">Hủy bỏ</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ========================================================================
+         1. CONSTANTS & STORAGE KEYS
+         ======================================================================== */
+      const STORAGE_HISTORY_KEY = "ilove_history_records";
+      const STORAGE_COUNT_KEY = "ilove_total_readings";
+      const MAX_HISTORY_ITEMS = 40;
+      const DEFAULT_CERT_MESSAGE =
+        "Chúc hai bạn luôn giữ được sự ấm áp, chân thành và thật nhiều khoảnh khắc ngọt ngào bên nhau!";
+
+      /* ========================================================================
+         2. DOM REFERENCES
+         ======================================================================== */
+      const ambientLayer = document.getElementById("ambientLayer");
+      const toastContainer = document.getElementById("toastContainer");
+      const navCounterPill = document.getElementById("navCounterPill");
+
+      const loveForm = document.getElementById("loveForm");
+      const nameOneInput = document.getElementById("nameOne");
+      const nameTwoInput = document.getElementById("nameTwo");
+      const loveMessageInput = document.getElementById("loveMessage");
+      const submitBtn = document.getElementById("submitBtn");
+
+      const historyListEl = document.getElementById("historyList");
+      const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+
+      const resultModalBackdrop = document.getElementById("resultModalBackdrop");
+      const modalCloseX = document.getElementById("modalCloseX");
+      const modalCloseBtn = document.getElementById("modalCloseBtn");
+      const modalPairTitle = document.getElementById("modalPairTitle");
+      const heartFillRect = document.getElementById("heartFillRect");
+      const heartPercentText = document.getElementById("heartPercentText");
+      const resultDetails = document.getElementById("resultDetails");
+      const resultTierTitle = document.getElementById("resultTierTitle");
+      const resultComment = document.getElementById("resultComment");
+      const modalParticles = document.getElementById("modalParticles");
+      const openCertBtn = document.getElementById("openCertBtn");
+      const shareResultBtn = document.getElementById("shareResultBtn");
+
+      const certOverlay = document.getElementById("certOverlay");
+      const closeCertBtn = document.getElementById("closeCertBtn");
+      const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+      const certCoupleNames = document.getElementById("certCoupleNames");
+      const certPercentBig = document.getElementById("certPercentBig");
+      const certTierBadge = document.getElementById("certTierBadge");
+      const certMessageText = document.getElementById("certMessageText");
+      const certDate = document.getElementById("certDate");
+      const certTime = document.getElementById("certTime");
+      const certCode = document.getElementById("certCode");
+      const certSigName1 = document.getElementById("certSigName1");
+      const certSigName2 = document.getElementById("certSigName2");
+
+      const confirmBackdrop = document.getElementById("confirmBackdrop");
+      const confirmYesBtn = document.getElementById("confirmYesBtn");
+      const confirmNoBtn = document.getElementById("confirmNoBtn");
+
+      /* ========================================================================
+         3. APPLICATION STATE
+         ======================================================================== */
+      let isAnimating = false;
+      let activeAnimationFrame = null;
+      let currentResult = null;
+      let historyRecords = [];
+      let totalReadingsCount = 0;
+
+      /* ========================================================================
+         4. GLASS NOTIFICATION SYSTEM
+         ======================================================================== */
+      function showToast(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.className = `glass-toast ${type}`;
+        const icon = type === "error" ? "⚠" : "♡";
+        toast.innerHTML = `<span style="color:#D63879;font-size:1.1rem;">${icon}</span><span>${escapeHTML(message)}</span>`;
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          toast.style.transform = "translateX(20px)";
+          toast.style.transition = "all 0.25s ease";
+          setTimeout(() => toast.remove(), 260);
+        }, 3200);
+      }
+
+      function escapeHTML(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      /* ========================================================================
+         5. AMBIENT FLOATING HEARTS BACKGROUND
+         ======================================================================== */
+      function initAmbientHearts() {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const symbols = ["♡", "♥", "✦"];
+        for (let i = 0; i < 14; i++) {
+          const el = document.createElement("span");
+          el.className = "bg-heart";
+          el.textContent = symbols[i % symbols.length];
+          el.style.left = `${Math.random() * 96 + 2}%`;
+          el.style.fontSize = `${Math.floor(Math.random() * 14) + 12}px`;
+          el.style.animationDuration = `${Math.random() * 12 + 12}s`;
+          el.style.animationDelay = `${Math.random() * 10}s`;
+          ambientLayer.appendChild(el);
+        }
+      }
+
+      /* ========================================================================
+         6. SYMMETRIC VIETNAMESE NAME NORMALIZATION & FNV-1A HASHING
+         ======================================================================== */
+      function normalizeDisplayName(raw) {
+        return raw.trim().replace(/\s+/g, " ");
+      }
+
+      function normalizeKeyName(raw) {
+        return raw
+          .normalize("NFC")
+          .trim()
+          .replace(/\s+/g, " ")
+          .toLowerCase();
+      }
+
+      function fnv1aHash(str) {
+        let hash = 0x811c9dc5;
+        for (let i = 0; i < str.length; i++) {
+          hash ^= str.charCodeAt(i);
+          hash = Math.imul(hash, 0x01000193);
+        }
+        return hash >>> 0;
+      }
+
+      function calculateLovePercentage(name1, name2) {
+        const k1 = normalizeKeyName(name1);
+        const k2 = normalizeKeyName(name2);
+        const sortedPair = [k1, k2].sort((a, b) => a.localeCompare(b, "vi"));
+        const combined = `${sortedPair[0]}::ilove::${sortedPair[1]}`;
+        const hashValue = fnv1aHash(combined);
+        return hashValue % 101;
+      }
+
+      function getCompatibilityTier(percent) {
+        if (percent <= 29) {
+          return {
+            title: "Khởi đầu bí ẩn",
+            shortMeaning: "Hai người còn nhiều điều để khám phá",
+            comment: "Hai người còn nhiều điều để khám phá. Đôi khi những câu chuyện thú vị nhất lại bắt đầu từ sự tò mò nhẹ nhàng!"
+          };
+        }
+        if (percent <= 54) {
+          return {
+            title: "Hai sắc màu riêng",
+            shortMeaning: "Khác biệt tạo nên sự thú vị",
+            comment: "Khác biệt tạo nên sự thú vị. Hai cá tính riêng biệt khi lắng nghe nhau sẽ tạo nên những góc nhìn đầy bất ngờ!"
+          };
+        }
+        if (percent <= 74) {
+          return {
+            title: "Có tia lửa dễ thương",
+            shortMeaning: "Có nhiều điểm đáng để tìm hiểu",
+            comment: "Có nhiều điểm đáng để tìm hiểu. Giữa hai bạn đang có những rung động tích cực rất đáng trân trọng!"
+          };
+        }
+        if (percent <= 89) {
+          return {
+            title: "Tâm đầu ý hợp",
+            shortMeaning: "Một kết quả rất ngọt ngào",
+            comment: "Một kết quả rất ngọt ngào! Hai bạn có nhiều điểm chung thú vị để cùng chia sẻ và đồng hành."
+          };
+        }
+        if (percent <= 99) {
+          return {
+            title: "Đồng điệu tuyệt vời",
+            shortMeaning: "Chỉ số tương hợp rất cao",
+            comment: "Chỉ số tương hợp rất cao! Sự ăn ý và thấu hiểu tự nhiên giúp hai bạn dễ dàng kết nối với nhau."
+          };
+        }
+        return {
+          title: "Perfect Match",
+          shortMeaning: "Cặp đôi hoàn hảo trong trò chơi",
+          comment: "Cặp đôi hoàn hảo trong trò chơi! Một tần số đồng điệu tối đa 100% cực kỳ hiếm gặp trên ILOVE."
+        };
+      }
+
+      /* ========================================================================
+         7. LOCALSTORAGE MANAGEMENT (SAFE WITH FALLBACKS)
+         ======================================================================== */
+      function loadStorageData() {
+        try {
+          const rawHistory = localStorage.getItem(STORAGE_HISTORY_KEY);
+          const rawCount = localStorage.getItem(STORAGE_COUNT_KEY);
+          historyRecords = rawHistory ? JSON.parse(rawHistory) : [];
+          if (!Array.isArray(historyRecords)) historyRecords = [];
+          totalReadingsCount = rawCount ? parseInt(rawCount, 10) || historyRecords.length : historyRecords.length;
+        } catch (err) {
+          historyRecords = [];
+          totalReadingsCount = 0;
+        }
+        updateCounterUI();
+        renderHistoryList();
+      }
+
+      function saveStorageData() {
+        try {
+          localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(historyRecords));
+          localStorage.setItem(STORAGE_COUNT_KEY, String(totalReadingsCount));
+        } catch (err) {
+          showToast("Trình duyệt đang chặn bộ nhớ tạm, lịch sử chỉ lưu trong phiên này.", "error");
+        }
+      }
+
+      function updateCounterUI() {
+        navCounterPill.textContent = `Đã bói: ${totalReadingsCount} lượt`;
+      }
+
+      function addHistoryRecord(record) {
+        historyRecords.unshift(record);
+        if (historyRecords.length > MAX_HISTORY_ITEMS) {
+          historyRecords = historyRecords.slice(0, MAX_HISTORY_ITEMS);
+        }
+        totalReadingsCount += 1;
+        updateCounterUI();
+        saveStorageData();
+        renderHistoryList();
+      }
+
+      function renderHistoryList() {
+        if (historyRecords.length === 0) {
+          clearHistoryBtn.style.display = "none";
+          historyListEl.innerHTML =
+            '<div class="history-empty">Chưa có lượt bói nào được lưu. Hãy nhập tên hai người để bắt đầu khám phá!</div>';
+          return;
+        }
+
+        clearHistoryBtn.style.display = "inline-block";
+        historyListEl.innerHTML = "";
+
+        historyRecords.forEach((item) => {
+          const row = document.createElement("div");
+          row.className = "history-item";
+
+          const tier = getCompatibilityTier(item.percent);
+          row.innerHTML = `
+            <div class="history-info">
+              <div class="history-names">
+                ${escapeHTML(item.name1)} <span class="h-heart">♡</span> ${escapeHTML(item.name2)}
+              </div>
+              <div class="history-meta">${escapeHTML(tier.title)} &middot; ${escapeHTML(item.dateStr)} ${escapeHTML(item.timeStr)}</div>
+            </div>
+            <div class="history-actions">
+              <span class="score-pill">${item.percent}%</span>
+              <button type="button" class="btn-mini" data-action="view" data-id="${escapeHTML(item.id)}">Xem lại</button>
+              <button type="button" class="btn-mini" data-action="cert" data-id="${escapeHTML(item.id)}">Chứng nhận</button>
+            </div>
+          `;
+          historyListEl.appendChild(row);
+        });
+      }
+
+      /* ========================================================================
+         8. RESULT MODAL & SVG HEART FILL ANIMATION
+         ======================================================================== */
+      function spawnModalParticles() {
+        modalParticles.innerHTML = "";
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        const icons = ["♡", "♥", "✨", "💗"];
+        for (let i = 0; i < 16; i++) {
+          const p = document.createElement("span");
+          p.className = "burst-particle";
+          p.textContent = icons[i % icons.length];
+          p.style.left = `${12 + Math.random() * 76}%`;
+          p.style.color = i % 2 === 0 ? "#F45F98" : "#D63879";
+          p.style.setProperty("--dx", `${(Math.random() - 0.5) * 90}px`);
+          p.style.setProperty("--rot", `${(Math.random() - 0.5) * 50}deg`);
+          p.style.animationDelay = `${Math.random() * 0.9}s`;
+          modalParticles.appendChild(p);
+        }
+      }
+
+      function openResultModal(record, instant = false) {
+        if (activeAnimationFrame) {
+          cancelAnimationFrame(activeAnimationFrame);
+          activeAnimationFrame = null;
+        }
+
+        currentResult = record;
+        const tier = getCompatibilityTier(record.percent);
+
+        modalPairTitle.innerHTML = `${escapeHTML(record.name1)} <span class="heart-sep">♡</span> ${escapeHTML(record.name2)}`;
+        resultTierTitle.textContent = `${record.percent}% – ${tier.title}`;
+        resultComment.textContent = `"${tier.comment}"`;
+
+        const heartTopY = 10;
+        const heartHeight = 162;
+
+        resultDetails.classList.remove("revealed");
+        heartPercentText.classList.remove("high-fill");
+        resultModalBackdrop.classList.add("active");
+
+        if (instant || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          const finalFillH = (record.percent / 100) * heartHeight;
+          const finalY = heartTopY + (heartHeight - finalFillH);
+          heartFillRect.setAttribute("y", finalY.toFixed(2));
+          heartFillRect.setAttribute("height", finalFillH.toFixed(2));
+          heartPercentText.textContent = `${record.percent}%`;
+          if (record.percent >= 52) heartPercentText.classList.add("high-fill");
+          resultDetails.classList.add("revealed");
+          isAnimating = false;
+          submitBtn.disabled = false;
+          return;
+        }
+
+        isAnimating = true;
+        submitBtn.disabled = true;
+        spawnModalParticles();
+
+        const duration = 2400;
+        const startTime = performance.now();
+
+        function animateStep(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const currentPct = Math.round(eased * record.percent);
+          const exactPct = eased * record.percent;
+
+          const fillH = (exactPct / 100) * heartHeight;
+          const rectY = heartTopY + (heartHeight - fillH);
+
+          heartFillRect.setAttribute("y", rectY.toFixed(2));
+          heartFillRect.setAttribute("height", fillH.toFixed(2));
+          heartPercentText.textContent = `${currentPct}%`;
+
+          if (currentPct >= 52) {
+            heartPercentText.classList.add("high-fill");
+          } else {
+            heartPercentText.classList.remove("high-fill");
+          }
+
+          if (progress < 1) {
+            activeAnimationFrame = requestAnimationFrame(animateStep);
+          } else {
+            activeAnimationFrame = null;
+            isAnimating = false;
+            submitBtn.disabled = false;
+            resultDetails.classList.add("revealed");
+          }
+        }
+
+        activeAnimationFrame = requestAnimationFrame(animateStep);
+      }
+
+      function closeResultModal() {
+        if (activeAnimationFrame) {
+          cancelAnimationFrame(activeAnimationFrame);
+          activeAnimationFrame = null;
+        }
+        isAnimating = false;
+        submitBtn.disabled = false;
+        resultModalBackdrop.classList.remove("active");
+      }
+
+      /* ========================================================================
+         9. LUXURY CERTIFICATE GENERATOR & PDF PRINT
+         ======================================================================== */
+      function generateCertificateCode() {
+        const now = new Date();
+        const y = now.getFullYear();
+        const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
+        const num = String(now.getMinutes()).padStart(2, "0") + String(now.getSeconds()).padStart(2, "0");
+        return `ILV-${y}-${num}${rand}`;
+      }
+
+      function openCertificate(record) {
+        if (!record) return;
+        const tier = getCompatibilityTier(record.percent);
+        const message = record.message && record.message.trim() ? record.message.trim() : DEFAULT_CERT_MESSAGE;
+
+        certCoupleNames.innerHTML = `${escapeHTML(record.name1)} <span class="c-heart">♡</span> ${escapeHTML(record.name2)}`;
+        certPercentBig.textContent = `${record.percent}%`;
+        certTierBadge.textContent = tier.title;
+        certMessageText.textContent = `"${message}"`;
+        certDate.textContent = record.dateStr;
+        certTime.textContent = record.timeStr;
+        certCode.textContent = record.certCode || generateCertificateCode();
+        certSigName1.textContent = record.name1;
+        certSigName2.textContent = record.name2;
+
+        certOverlay.classList.add("active");
+        certOverlay.scrollTop = 0;
+        showToast("Đã tạo giấy chứng nhận tương hợp!", "success");
+      }
+
+      function closeCertificate() {
+        certOverlay.classList.remove("active");
+      }
+
+      /* ========================================================================
+         10. SHARE FEATURE (WEB SHARE API + CLIPBOARD FALLBACK)
+         ======================================================================== */
+      async function shareCurrentResult() {
+        if (!currentResult) return;
+        const tier = getCompatibilityTier(currentResult.percent);
+        const shareText = `ILOVE ♡ ${currentResult.name1} + ${currentResult.name2}: ${currentResult.percent}% – ${tier.title}!`;
+
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: "ILOVE – Chỉ số tương hợp tình yêu",
+              text: shareText
+            });
+            return;
+          } catch (err) {
+            if (err && err.name === "AbortError") return;
+          }
+        }
+
+        try {
+          await navigator.clipboard.writeText(shareText);
+          showToast("Đã sao chép kết quả vào khay nhớ tạm!", "success");
+        } catch (err) {
+          const tempArea = document.createElement("textarea");
+          tempArea.value = shareText;
+          document.body.appendChild(tempArea);
+          tempArea.select();
+          document.execCommand("copy");
+          tempArea.remove();
+          showToast("Đã sao chép kết quả vào khay nhớ tạm!", "success");
+        }
+      }
+
+      /* ========================================================================
+         11. EVENT LISTENERS
+         ======================================================================== */
+      loveForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (isAnimating) return;
+
+        const name1 = normalizeDisplayName(nameOneInput.value);
+        const name2 = normalizeDisplayName(nameTwoInput.value);
+        const message = normalizeDisplayName(loveMessageInput.value);
+
+        if (!name1 || !name2) {
+          showToast("Vui lòng nhập đầy đủ tên của cả hai người!", "error");
+          if (!name1) nameOneInput.focus();
+          else nameTwoInput.focus();
+          return;
+        }
+
+        if (normalizeKeyName(name1) === normalizeKeyName(name2)) {
+          showToast("Hai tên không được trùng nhau. Hãy nhập tên của người ấy nhé!", "error");
+          nameTwoInput.focus();
+          return;
+        }
+
+        const percent = calculateLovePercentage(name1, name2);
+        const now = new Date();
+        const dateStr = now.toLocaleDateString("vi-VN");
+        const timeStr = now.toLocaleTimeString("vi-VN", { hour12: false });
+
+        const record = {
+          id: `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+          name1,
+          name2,
+          message,
+          percent,
+          dateStr,
+          timeStr,
+          certCode: generateCertificateCode()
+        };
+
+        addHistoryRecord(record);
+        openResultModal(record, false);
+      });
+
+      modalCloseX.addEventListener("click", closeResultModal);
+      modalCloseBtn.addEventListener("click", closeResultModal);
+      resultModalBackdrop.addEventListener("click", function (e) {
+        if (e.target === resultModalBackdrop) {
+          closeResultModal();
+        }
+      });
+
+      openCertBtn.addEventListener("click", function () {
+        if (currentResult) {
+          openCertificate(currentResult);
+        }
+      });
+
+      shareResultBtn.addEventListener("click", shareCurrentResult);
+
+      closeCertBtn.addEventListener("click", closeCertificate);
+      downloadPdfBtn.addEventListener("click", function () {
+        window.print();
+      });
+
+      historyListEl.addEventListener("click", function (e) {
+        const btn = e.target.closest("button[data-action]");
+        if (!btn) return;
+        const id = btn.getAttribute("data-id");
+        const action = btn.getAttribute("data-action");
+        const found = historyRecords.find((item) => item.id === id);
+        if (!found) return;
+
+        if (action === "view") {
+          openResultModal(found, true);
+        } else if (action === "cert") {
+          currentResult = found;
+          openCertificate(found);
+        }
+      });
+
+      clearHistoryBtn.addEventListener("click", function () {
+        confirmBackdrop.classList.add("active");
+      });
+
+      confirmNoBtn.addEventListener("click", function () {
+        confirmBackdrop.classList.remove("active");
+      });
+
+      confirmYesBtn.addEventListener("click", function () {
+        historyRecords = [];
+        saveStorageData();
+        renderHistoryList();
+        confirmBackdrop.classList.remove("active");
+        showToast("Đã xóa toàn bộ lịch sử bói!", "success");
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          if (confirmBackdrop.classList.contains("active")) {
+            confirmBackdrop.classList.remove("active");
+          } else if (certOverlay.classList.contains("active")) {
+            closeCertificate();
+          } else if (resultModalBackdrop.classList.contains("active")) {
+            closeResultModal();
+          }
+        }
+      });
+
+      /* ========================================================================
+         12. INITIALIZATION
+         ======================================================================== */
+      initAmbientHearts();
+      loadStorageData();
+    })();
+  </script>
+</body>
+</html>
